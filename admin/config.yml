@@ -1,0 +1,50 @@
+# ALTROVE visual editor configuration
+# ------------------------------------------------------------------
+# IMPORTANT: change the "repo" line below to YOUR GitHub username and
+# repository name once you've created it, e.g.  repo: maiaww/altrove
+# ------------------------------------------------------------------
+
+backend:
+  name: github
+  repo: REPLACE_ME/altrove   # <-- change to your-github-username/altrove
+  branch: main
+
+# Where photos you upload in the editor are saved
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+site_url: https://altrovetravel.com
+
+collections:
+  - name: content
+    label: "Stories"
+    files:
+      - name: stories
+        label: "All Stories"
+        file: "content/stories.json"
+        description: "Add, edit, reorder or remove your travel stories here. Click 'Save' then 'Publish' and your live site updates in about a minute."
+        fields:
+          - name: stories
+            label: "Stories"
+            label_singular: "Story"
+            widget: list
+            summary: "{{fields.order}}.  {{fields.country}}  —  {{fields.date}}"
+            fields:
+              - { name: order, label: "Order on the page (1 = shown first)", widget: number, value_type: int, default: 1 }
+              - { name: country, label: "Title (usually the country)", widget: string }
+              - { name: slug, label: "Web-address slug — lowercase, no spaces (e.g. japan)", widget: string, pattern: ['^[a-z0-9-]+$', 'Use lowercase letters, numbers and dashes only'] }
+              - { name: date, label: "Date to show (e.g. Jun 4)", widget: string }
+              - { name: readTime, label: "Read time (e.g. 8 min read)", widget: string, default: "5 min read" }
+              - { name: cover, label: "Cover photo", widget: image }
+              - { name: excerpt, label: "Short teaser shown on the story card", widget: text }
+              - { name: body, label: "Your story", widget: markdown }
+              - name: gallery
+                label: "Photo gallery (shown at the end of the story)"
+                label_singular: "Photo"
+                widget: list
+                required: false
+                summary: "{{fields.caption}}"
+                fields:
+                  - { name: src, label: "Photo", widget: image }
+                  - { name: caption, label: "Caption", widget: string, required: false }
+              - { name: galleryNote, label: "Optional note under the gallery (leave blank if not needed)", widget: string, required: false }

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ALTROVE — a collective for those who wander</title>
+<meta name="description" content="ALTROVE is a travel journal of stories, lessons and photography from the road. Every place tells a story." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --ink:#1f2420;
+  --ink-soft:#4a544c;
+  --cream:#f6f1e7;
+  --cream-deep:#efe7d6;
+  --paper:#fffdf8;
+  --terra:#b5623c;
+  --terra-deep:#9a4f2f;
+  --gold:#c9a24b;
+  --forest:#2f4034;
+  --line:rgba(31,36,32,.14);
+  --shadow:0 18px 50px -22px rgba(31,36,32,.45);
+  --maxw:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:500;line-height:1.1;letter-spacing:-.01em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s,box-shadow .4s,padding .4s;padding:22px 0}
+.nav.scrolled{background:rgba(246,241,231,.92);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line);padding:14px 0}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between}
+.brand{font-family:'Fraunces',serif;font-weight:600;font-size:1.5rem;letter-spacing:.32em;color:#fff;padding-left:.32em;transition:color .4s}
+.nav.scrolled .brand{color:var(--ink)}
+.navlinks{display:flex;gap:34px;align-items:center}
+.navlinks a{font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.9);font-weight:500;transition:color .3s}
+.nav.scrolled .navlinks a{color:var(--ink-soft)}
+.navlinks a:hover{color:var(--gold)}
+.nav.scrolled .navlinks a:hover{color:var(--terra)}
+.navtoggle{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:5px;padding:6px}
+.navtoggle span{width:26px;height:2px;background:#fff;transition:background .4s}
+.nav.scrolled .navtoggle span{background:var(--ink)}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.05)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,26,22,.5) 0%,rgba(20,26,22,.28) 40%,rgba(20,26,22,.62) 100%)}
+.hero-inner{position:relative;z-index:2;padding:0 24px;max-width:900px}
+.hero .eyebrow{font-size:.8rem;letter-spacing:.42em;text-transform:uppercase;margin-bottom:26px;opacity:.9}
+.hero h1{font-size:clamp(3.4rem,11vw,7.5rem);font-weight:600;letter-spacing:.14em;margin-bottom:18px;text-shadow:0 2px 30px rgba(0,0,0,.3)}
+.hero .tagline{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(1.15rem,3vw,1.7rem);font-weight:400;opacity:.95}
+.hero .motto{margin-top:30px;font-size:.82rem;letter-spacing:.28em;text-transform:uppercase;opacity:.82}
+.scrollcue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:2;width:26px;height:42px;border:1.5px solid rgba(255,255,255,.6);border-radius:14px;display:flex;justify-content:center;padding-top:8px}
+.scrollcue span{width:3px;height:8px;background:#fff;border-radius:2px;animation:sc 1.8s infinite}
+@keyframes sc{0%{opacity:0;transform:translateY(-4px)}40%{opacity:1}80%{opacity:0;transform:translateY(10px)}}
+
+/* INTRO */
+.intro{background:var(--paper);padding:clamp(70px,10vw,120px) 0;text-align:center;border-bottom:1px solid var(--line)}
+.intro .kicker{color:var(--terra);font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;margin-bottom:22px}
+.intro p{font-family:'Fraunces',serif;font-size:clamp(1.35rem,3.2vw,2.1rem);line-height:1.5;font-weight:400;color:var(--ink);max-width:820px;margin:0 auto}
+.intro p .accent{font-style:italic;color:var(--terra)}
+
+/* STORIES */
+.stories{padding:clamp(70px,10vw,120px) 0}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:52px;flex-wrap:wrap}
+.section-head h2{font-size:clamp(2.2rem,5vw,3.3rem)}
+.section-head .lead{color:var(--ink-soft);max-width:340px;font-size:.98rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.card{background:var(--paper);border-radius:6px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;display:flex;flex-direction:column;border:1px solid var(--line);transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s}
+.card:hover{transform:translateY(-8px);box-shadow:0 30px 60px -26px rgba(31,36,32,.55)}
+.card-img{position:relative;aspect-ratio:4/5;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.card:hover .card-img img{transform:scale(1.06)}
+.card-num{position:absolute;top:16px;left:18px;font-family:'Fraunces',serif;font-size:.9rem;letter-spacing:.1em;color:#fff;background:rgba(31,36,32,.42);backdrop-filter:blur(4px);padding:5px 12px;border-radius:20px}
+.card-body{padding:26px 26px 30px}
+.card .meta{display:flex;gap:14px;color:var(--terra);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+.card h3{font-size:1.9rem;margin-bottom:12px;letter-spacing:.04em}
+.card p{color:var(--ink-soft);font-size:.95rem;margin-bottom:18px}
+.card .more{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);font-weight:600;display:inline-flex;align-items:center;gap:8px}
+.card .more::after{content:"→";transition:transform .3s}
+.card:hover .more::after{transform:translateX(6px)}
+
+/* ABOUT */
+.about{background:var(--forest);color:#f2ede1;padding:clamp(70px,10vw,120px) 0}
+.about .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(30px,6vw,80px);align-items:center}
+.about .kicker{color:var(--gold);font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;margin-bottom:20px}
+.about h2{font-size:clamp(2rem,4.5vw,3rem);color:#fff;margin-bottom:24px;line-height:1.15}
+.about p{color:rgba(242,237,225,.82);margin-bottom:18px;font-size:1.02rem}
+.about .photo{aspect-ratio:4/5;border-radius:6px;overflow:hidden;box-shadow:var(--shadow)}
+.about .photo img{width:100%;height:100%;object-fit:cover}
+
+/* CONTACT */
+.contact{padding:clamp(70px,10vw,120px) 0;text-align:center;background:var(--cream-deep)}
+.contact .kicker{color:var(--terra);font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;font-weight:600;margin-bottom:20px}
+.contact h2{font-size:clamp(2.2rem,5vw,3.4rem);margin-bottom:18px}
+.contact .sub{color:var(--ink-soft);max-width:560px;margin:0 auto 40px;font-size:1.05rem}
+.contact-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:38px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:40px;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;transition:transform .3s,background .3s,color .3s}
+.btn-primary{background:var(--terra);color:#fff}
+.btn-primary:hover{background:var(--terra-deep);transform:translateY(-3px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--terra);color:var(--terra);transform:translateY(-3px)}
+.socials{display:flex;gap:22px;justify-content:center}
+.socials a{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;transition:all .3s;color:var(--ink-soft)}
+.socials a:hover{background:var(--ink);color:#fff;border-color:var(--ink);transform:translateY(-3px)}
+.socials svg{width:19px;height:19px}
+.placeholder-note{display:inline-block;margin-top:6px;font-size:.78rem;color:var(--terra-deep);background:rgba(181,98,60,.1);padding:4px 12px;border-radius:20px}
+
+/* FOOTER */
+.footer{background:var(--ink);color:rgba(246,241,231,.7);padding:50px 0;text-align:center}
+.footer .brand-f{font-family:'Fraunces',serif;letter-spacing:.3em;font-size:1.1rem;color:#fff;margin-bottom:12px}
+.footer p{font-size:.85rem}
+
+/* STORY OVERLAY */
+.reader{position:fixed;inset:0;z-index:100;background:var(--paper);overflow-y:auto;opacity:0;visibility:hidden;transition:opacity .45s}
+.reader.open{opacity:1;visibility:visible}
+.reader-close{position:fixed;top:22px;right:24px;z-index:110;width:48px;height:48px;border-radius:50%;background:rgba(31,36,32,.55);backdrop-filter:blur(6px);border:0;color:#fff;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .3s}
+.reader-close:hover{background:var(--ink)}
+.r-hero{position:relative;height:62vh;min-height:380px;background-size:cover;background-position:center;display:flex;align-items:flex-end}
+.r-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,26,22,.15),rgba(20,26,22,.72))}
+.r-hero-inner{position:relative;z-index:2;color:#fff;padding:0 clamp(20px,5vw,48px) 46px;max-width:var(--maxw);margin:0 auto;width:100%}
+.r-hero .meta{display:flex;gap:16px;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-bottom:14px;color:rgba(255,255,255,.9)}
+.r-hero h1{font-size:clamp(3rem,9vw,6rem);font-weight:600;letter-spacing:.06em}
+.article{max-width:720px;margin:0 auto;padding:clamp(46px,7vw,80px) clamp(20px,5vw,24px) 40px;font-size:1.12rem;color:#26302a}
+.article p{margin-bottom:26px}
+.article p:first-of-type::first-letter{font-family:'Fraunces',serif;font-size:3.6rem;line-height:.8;float:left;padding:8px 12px 0 0;color:var(--terra);font-weight:600}
+.article h3{font-size:1.7rem;margin:44px 0 18px;color:var(--ink)}
+.pullquote,.article blockquote{font-family:'Fraunces',serif;font-style:italic;font-size:1.5rem;line-height:1.4;color:var(--forest);border-left:3px solid var(--gold);padding:6px 0 6px 28px;margin:38px 0;font-weight:400}
+.article blockquote p{margin:0}
+.article img{border-radius:5px;margin:30px 0;box-shadow:var(--shadow)}
+.article h2{font-size:1.9rem;margin:44px 0 18px;color:var(--ink);font-family:'Fraunces',serif}
+.article em{font-style:italic}
+.gallery{max-width:var(--maxw);margin:20px auto 80px;padding:0 clamp(20px,5vw,24px);display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.gallery figure{margin:0}
+.gallery-img{aspect-ratio:3/4;border-radius:5px;overflow:hidden;box-shadow:var(--shadow)}
+.gallery-img img{width:100%;height:100%;object-fit:cover;transition:transform 1s}
+.gallery figure:hover .gallery-img img{transform:scale(1.05)}
+.gallery figcaption{font-size:.8rem;color:var(--ink-soft);margin-top:8px;letter-spacing:.04em;text-align:center;font-style:italic}
+.gallery-note{max-width:720px;margin:0 auto 70px;padding:20px 26px;background:var(--cream);border:1px dashed var(--terra);border-radius:6px;color:var(--terra-deep);font-size:.92rem;text-align:center}
+
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr;max-width:440px;margin:0 auto}
+  .about .wrap{grid-template-columns:1fr}
+  .about .photo{max-width:360px;order:-1}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .navlinks{position:fixed;inset:0;background:var(--forest);flex-direction:column;justify-content:center;gap:30px;transform:translateX(100%);transition:transform .4s;z-index:40}
+  .navlinks.show{transform:translateX(0)}
+  .navlinks a{color:#fff !important;font-size:1.1rem}
+  .navtoggle{display:flex;z-index:60}
+  .gallery{grid-template-columns:1fr;max-width:380px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="brand">ALTROVE</a>
+    <button class="navtoggle" id="navtoggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="navlinks" id="navlinks">
+      <a href="#stories">Stories</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg" style="background-image:url('https://static.wixstatic.com/media/14d7f4_5871022c8f8e4b87aaba4fdf3d136672~mv2.jpeg/v1/fill/w_1920,h_1280,al_c,q_85,enc_auto/14d7f4_5871022c8f8e4b87aaba4fdf3d136672~mv2.jpeg')"></div>
+  <div class="hero-inner">
+    <div class="eyebrow">Travel Journal</div>
+    <h1>ALTROVE</h1>
+    <div class="tagline">a collective for those who wander</div>
+    <div class="motto">Every place tells a story</div>
+  </div>
+  <div class="scrollcue"><span></span></div>
+</header>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="kicker">Welcome</div>
+    <p>Stories, lessons and photographs from the road — the <span class="accent">experiences and moments</span> that shape how we see the world.</p>
+  </div>
+</section>
+
+<section class="stories" id="stories">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The Stories</h2>
+      <p class="lead">Slow travel through Southeast Asia — one country, one month, one story at a time.</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div>
+      <div class="kicker">About ALTROVE</div>
+      <h2>Every place tells a story — this is where I keep mine.</h2>
+      <p>I'm Maia, a solo traveller from Perth, Western Australia. ALTROVE is where I keep my stories from the road — the lessons hidden inside them, and the photographs that bring them back to life. It started with a simple belief: that travel isn't just about seeing beautiful places, but about understanding different ways of life.</p>
+      <p>These are honest accounts from the road — the good days and the hard ones, the bruised knees and the lifelong friends. If they inspire you to take your own leap, then they've done their job. For collaborations, photography or a chat, you'll always find me a message away.</p>
+    </div>
+    <div class="photo">
+      <img src="https://static.wixstatic.com/media/14d7f4_07e297dcbb254fa9a09938b7ce07e8d6~mv2.jpeg/v1/fit/w_1600,h_1600,al_c,q_85,enc_auto/14d7f4_07e297dcbb254fa9a09938b7ce07e8d6~mv2.jpeg" onerror="this.onerror=null;this.src='https://static.wixstatic.com/media/14d7f4_07e297dcbb254fa9a09938b7ce07e8d6~mv2.jpeg'" alt="On the road" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="kicker">Get in touch</div>
+    <h2>Let's connect</h2>
+    <p class="sub">For collaborations, photography, or just to say hello — I'd love to hear from you. Follow the journey or reach out directly.</p>
+    <div class="contact-links">
+      <a href="mailto:Maiaww8@gmail.com" class="btn btn-primary">✉ Email me</a>
+      <a href="https://www.instagram.com/maia_ww/" target="_blank" rel="noopener" class="btn btn-ghost">@maia_ww on Instagram</a>
+    </div>
+    <div class="socials">
+      <a href="https://www.instagram.com/maia_ww/" target="_blank" rel="noopener" aria-label="Instagram" title="@maia_ww on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="mailto:Maiaww8@gmail.com" aria-label="Email" title="Maiaww8@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3 6l9 7 9-7"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="brand-f">ALTROVE</div>
+    <p>© 2026 ALTROVE. All rights reserved. · a collective for those who wander</p>
+  </div>
+</footer>
+
+<!-- READER OVERLAY -->
+<div class="reader" id="reader">
+  <button class="reader-close" id="readerClose" aria-label="Close">✕</button>
+  <div id="readerContent"></div>
+</div>
+
+<script>
+const IMG = 'https://static.wixstatic.com/media/';
+// Resolve an image reference. Accepts a full URL, a local path (uploaded photo),
+// or a Wix media ID (legacy). Returns a displayable URL.
+function resolveImg(src){
+  if(!src) return '';
+  if(/^https?:\/\//.test(src)) return src;
+  if(src.charAt(0)==='/' || src.indexOf('assets/')===0 || src.indexOf('./')===0) return src;
+  return IMG+src+'~mv2.jpeg/v1/fit/w_1600,h_1600,al_c,q_85,enc_auto/'+src+'~mv2.jpeg';
+}
+function resolveImgBase(src){
+  if(!src || /^https?:\/\//.test(src) || src.charAt(0)==='/' || src.indexOf('assets/')===0 || src.indexOf('./')===0) return resolveImg(src);
+  return IMG+src+'~mv2.jpeg';
+}
+function imgTag(src,alt,cls){
+  var base = resolveImgBase(src);
+  return '<img src="'+resolveImg(src)+'" onerror="this.onerror=null;this.src=\''+base+'\'" alt="'+(alt||'').replace(/"/g,'&quot;')+'"'+(cls?' class="'+cls+'"':'')+' loading="lazy">';
+}
+// Minimal, self-contained Markdown renderer (paragraphs, headings, blockquotes,
+// images, links, bold/italic) — no external library, so the site stands alone.
+function inlineMd(t){
+  t = t.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, function(_,a,u){ return imgTag(u.trim(), a); });
+  t = t.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  t = t.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  t = t.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+  t = t.replace(/(^|[^_])_([^_\n]+)_(?!_)/g, '$1<em>$2</em>');
+  return t;
+}
+function mdToHtml(md){
+  var blocks = md.replace(/\r\n/g,'\n').split(/\n{2,}/), html='';
+  blocks.forEach(function(block){
+    var b = block.trim();
+    if(!b) return;
+    if(/^>\s?/.test(b)){
+      var inner = b.split('\n').map(function(l){return l.replace(/^>\s?/,'');}).join(' ');
+      html += '<blockquote>'+inlineMd(inner)+'</blockquote>';
+    } else if(/^#{1,6}\s/.test(b)){
+      var lvl = b.match(/^#+/)[0].length, txt = b.replace(/^#{1,6}\s+/,'');
+      var tag = lvl<=2 ? 'h2' : 'h3';
+      html += '<'+tag+'>'+inlineMd(txt)+'</'+tag+'>';
+    } else if(/^!\[[^\]]*\]\([^)\s]+\)$/.test(b)){
+      html += inlineMd(b);
+    } else {
+      html += '<p>'+inlineMd(b.replace(/\n/g,' '))+'</p>';
+    }
+  });
+  return html;
+}
+function renderBody(body){
+  if(!body) return '';
+  if(body.trim().charAt(0)==='<') return body;  // raw HTML (embedded fallback)
+  return mdToHtml(body);                          // markdown (stories.json + editor)
+}
+
+var STORIES = [];
+var BY_SLUG = {};
+
+const LEGACY = {
+  vietnam: {
+    title:'Vietnam', meta:['Jun 4','11 min read'],
+    hero:'14d7f4_4df528aeb1674556a4fb501c1ffc7462',
+    body:`<p>Goooood morning, Vietnam! Vietnam is a country rich in history and culture, with diverse landscapes, friendly people and incredible food. I spent a month travelling from north to south, and each place I went felt completely different, offering something unique and memorable. Vietnam has everything from busy cities, winding mountain roads and quiet countryside villages to stunning coastlines. Vietnam constantly kept me on my toes and is a playground for young adventure seekers like myself.</p>
+<p>I flew into the busy city of Hanoi and stayed at a hostel in the Old Quarter. If you're backpacking Vietnam, this is the place to stay. It's right in the centre of all the action, surrounded by shops, cafés, restaurants, and many of the city's main attractions. Most places are within walking distance, making it the perfect base to explore from.</p>
+<p>After dropping my bags off, I was straight on a mission to try the famous Vietnamese coffee. That stuff is like rocket fuel — and incredibly delicious. Vietnam is known for its egg coffee and salt coffee, and both are definitely worth trying.</p>
+<p>I spent the rest of the day wandering through the busy streets, slowly getting used to crossing Hanoi's disorderly roads — it's terrifying at first, but don't worry, you get the hang of it. I soaked in the street art, explored lots of shops, and finished the day watching the sunset over Hoan Kiem Lake. The perfect introduction to Vietnam.</p>
+<p>I met Kate, a 19-year-old from Canada, and we clicked instantly. She invited me to join her for dinner, and before long we made a very spontaneous decision to sign up for the hostel pub crawl. Hanoi's nightlife is incredibly lively, with busy bars, cheap drinks, and karaoke seemingly around every corner. I found that when arriving in a new place, hostel pub crawls are the best way to meet people and get a good feel of a place, especially in the cities.</p>
+<p>After Hanoi, Kate and I made our way to Cat Ba Island, which is off the coast near Ha Long Bay. After a 3hr bus ride and a short boat ride, we arrived. We rushed to the beach for sunset at Cat Co Beach. We swam and sat on the cliff watching the sun go down, looking out on the horizon of the South China Sea.</p>
+<p>The full-day boat tour on Cat Ba is a must do. We kayaked through caves, jumped off the roof of the boat, and enjoyed a Vietnamese-style lunch on deck. Later, the boat dropped us on a small island where we rode bikes through a quiet village. That's where we met a group of little girls playing with their dogs. They didn't speak English, and we didn't speak Vietnamese, but it didn't matter at all. They let us cuddle their puppies and showed us around their front yard. It was such a simple moment, but it stuck with me.</p>
+<div class="pullquote">Human connection doesn't always need words — a smile, a laugh, and a little kindness can say more than any language.</div>
+<p>On the way back, we cruised through a floating fishing village, watching people go about their daily lives on the water. For me, the boat tour was the best way to experience Cat Ba. Not only did it showcase the stunning scenery, but it also offered a glimpse into the local way of life and Vietnam's unique coastal culture.</p>
+<p>The Ha Giang Loop is a 400km motorbike loop through the mountains of Northern Vietnam. You can either ride it yourself or hop on the back with an 'easy-rider' — a local guide who drives you, keeps you safe and makes sure you don't end up falling off the side of the cliff. While it's possible to ride the loop yourself, I'd only recommend it if you're confident on a manual bike. The roads are incredibly winding, sometimes rough and corrugated, and can become quite dangerous when the weather turns bad. For that reason, joining a group and booking an easy-rider is a great option. You still get all the adventure and incredible views, but with the added peace of mind that you're in the hands of someone who knows the roads inside and out.</p>
+<p>Kate and I booked with Bong Hostel, which runs the loop as a large group tour. It's one of the most popular ways for backpackers to experience Ha Giang and a great way to meet other travellers along the way. Spending four days together riding through the mountains, sharing meals, and staying in homestays, you create meaningful connections with people from around the world. I highly recommend Bong Hostel — the guides were incredibly friendly and the atmosphere was fun and welcoming. It was the perfect way to experience one of Vietnam's most unforgettable adventures. We spent our days stopping at lookouts, drinking far too much Vietnamese coffee, and taking in every bit of the scenery and atmosphere: misty mountain passes, rural villages with traditional houses, local kids high-fiving you as you passed, terraced rice paddies and vibrant green cornfields.</p>
+<p>The nights were spent in homestays with our group, sharing huge family-style dinners, singing karaoke, and trying Vietnam's famous "happy water." To be completely honest, it tasted like a dodgy knock-off tequila, but after a few shots nobody seemed to care. Every night is a party night.</p>
+<p>One moment that really stayed with me wasn't just the scenery. It was seeing very young local children carrying enormous bundles of wood on their backs through the mountains. My guide told me they can walk up to 15km a day. While I was complaining about wet shoes and bad weather, they were working harder than most adults I know. It was a reminder of how fortunate and grateful I am to live where I do. We don't get to choose the cards we're dealt in life. I think it's easy to get caught up chasing the next thing, focusing on everything you don't have instead of appreciating what you do have. Seeing those young children reinforced that perspective.</p>
+<p>On the final day, we stopped at a waterfall and jumped into the freezing water before making our way back to Ha Giang. We arrived exhausted, dirty, and smelling questionable after four days on the road, but none of us wanted it to end.</p>
+<p>Overall, the Ha Giang Loop was hands down one of the best experiences of my whole trip. The landscapes, the people, the karaoke — I'd do it again in a heartbeat, but next time I'd love to drive it myself. Oh, and if you ever make it to Ha Giang — go to the pizza place on the corner of the main street. Inside there's a wall full of the names of people who've done the loop. Make sure you look for mine: "MAIA FROM PERTH, WA."</p>
+<p>Sapa is a breathtaking mountainous town in northern Vietnam, famous for its emerald green rice terraces, cultural trekking tours and sweeping views over the surrounding valleys. Nestled high in the mountains, you can find tiny off-grid villages; it almost feels more European than Southeast Asian, with cool temperatures and a relaxing alpine atmosphere.</p>
+<p>It quickly earned a special place in Kate's and my heart, partly because we ended up getting stuck there longer than planned. What was meant to be a quick stop turned into nearly a week thanks to some lovely "typhoon weather." Landslides and flash floods shut down most of the major hiking routes, including the two-day trek we'd planned with a local guide. Instead, we spent our days hopping between cosy cafés and restaurants. The Little Australia Sports Bar became our holy grail, and we spent far too many hours there playing games of pool. We still managed a couple of shorter adventures, including hiking Fansipan Mountain and exploring Cat Cat Village. Sapa is also a great place to pick up hiking and outdoor gear for a fraction of the price. I bought a $21 AUD "Arcteryx" rain jacket, which may have been the best investment of the entire trip. Considering the amount of rain we got, it earned its keep.</p>
+<p>Ninh Binh is known as the 'Ha Long Bay on land' — the landscape is rural and peaceful, with limestone cliffs, winding rivers, and traditional wooden sampans that glide past. After Sapa, we caught an overnight bus to Ninh Binh, which was about 8hrs. We arrived to blue skies, sunshine, and humidity, which felt amazing after nearly a week of rain. Our hostel was tucked amongst the rice fields, and the welcoming staff made us feel right at home.</p>
+<p>The best way to explore Ninh Binh is by bicycle. You can rent one almost anywhere in town, and most hostels and accommodation offer them as well. The area is relatively small, making it easy to cycle between the rice fields, viewpoints, temples, and villages. One or two days is usually enough to explore the countryside at a relaxed pace and take in everything that makes Ninh Binh so special. Since it was Kate's last night before heading back to Australia, we decided a proper farewell was necessary. We spent the evening bar hopping around Ninh Binh, starting with a few casual drinks that somehow led to splitting a few bottles of soju (always a dangerous move). We stumbled into an empty nightclub where the owner let us sing karaoke with the whole place to ourselves. By midnight, more people had arrived, the DJ had started playing, and our random night out had turned into a full-blown party. Exactly the kind of unexpected travel moment that ends up becoming one of your favourite stories to tell.</p>
+<p>After Ninh Binh, I got the 12hr overnight bus to Da Nang. It went smoothly… until I got woken up in the early hours of the morning by a yelling Vietnamese man telling everyone to get off the bus. Half asleep and confused, I realised the bus had broken down — just my luck. After about an hour of waiting around, a replacement bus showed up and we continued the journey.</p>
+<p>Da Nang is a vibrant coastal city known for its long sandy beaches, modern skyline, beach clubs and food scene. Some people say it's the 'Miami Beach of Vietnam.' It offers a completely different side of Vietnam compared to the country's northern regions. I spent two days in Da Nang catching up with some family friends, taking long walks along the beachfront and indulging in some good western food, which I'd been craving after weeks of travelling. Da Nang is also home to the famous Golden Hand Bridge in Ba Na Hills, known for its giant stone hands appearing to hold the walkway above the mountains. I didn't make it up there, purely because I was enjoying doing absolutely nothing for a change. However, if you're visiting Da Nang, it's one of the attractions worth checking out.</p>
+<p>Hoi An is a UNESCO-listed ancient town on Vietnam's central coast, known for its lantern-lit streets, historic architecture, tailor shops, and incredible food scene. I wandered through the busy, tourist-packed streets and sat by the river to watch the lantern boats glide past. The river was filled with floating colourful lanterns, families laughed along the waterfront, and couples stopped to take photos. Despite being one of Vietnam's most popular destinations, Hoi An felt both lively and peaceful at the same time.</p>
+<p>I stayed at The Dom Hostel in the Old Town, a cute little spot right in the heart of the action. The receptionist was incredibly helpful with local recommendations, and the free breakfast was a chef's kiss. Hoi An is a foodie heaven. A standout was a place called Hi Restaurant, a small local spot serving some of the best Bánh Xèo and Cao Lầu noodles. I'd also highly recommend trying the famous Bánh Mì Phượng, made internationally famous after being praised by chef Anthony Bourdain. After trying more bánh mì than I'd like to admit throughout Vietnam, this one was easily my favourite.</p>
+<p>Of course, no trip to Hoi An is complete without getting something tailored. I had a linen set made at Tailor 41, which is popular on social media and did a fantastic job. Most custom pieces cost somewhere between AUD $70–150, depending on what you're after. I also got a tattoo at 1984 Tattoo Studio. The quality was excellent, the pricing was reasonable, and they even gave me a voucher towards a future tattoo.</p>
+<p>Dalat was a place I didn't know much about before arriving. Located in Vietnam's Central Highlands, it's known for its cooler climate, rolling mountains, pine forests, and coffee plantations, with average temperatures sitting around 21°C. I arrived that evening and checked into a hostel that cost just $1 AUD a night. Naturally, I had to see if it was too good to be true. The guy at reception was incredibly welcoming and somehow had one of the best Australian accents I've ever heard from a Vietnamese person. Within minutes of checking in, he was convincing me to join a local motorbike tour he and his friends ran around Dalat. Since the area isn't as touristy as other parts of Vietnam, the tour promised a more authentic, off-the-beaten-path experience — which sounded right up my alley.</p>
+<p>The tour took us through local flower farms, where I learned how much of Vietnam's flowers are grown and distributed from the region. There was a short hike to a waterfall, and we even went down a 'natural waterslide' — basically the rapids and rocks of the waterfall. Obviously not risk-assessed, but at least they gave me a very oversized lifejacket. I made it out in one piece (with a very bruised knee). Worth it? Still not sure.</p>
+<p>The scenery throughout the day was stunning. Misty mountains, rolling farmland, and endless shades of green gave Dalat a peaceful, rural feel that was unlike anywhere else I'd visited in Vietnam. We stopped for a simple local lunch of rice, pork, fried egg, and vegetables — an easy 10/10. Later, we visited a coffee plantation and tried weasel coffee, one of the most expensive coffees in the world. The process involves feeding coffee beans to weasels, collecting them after they've pooed it out, and roasting them into coffee. Strange? Absolutely. Surprisingly delicious? Also yes. Kind of spicy.</p>
+<p>We also visited a local village, where one of the locals invited us into his home. It was an eye-opening moment that gave a glimpse into the realities of life for many families in the region. It was a reminder that travel isn't just about seeing beautiful places — it's about understanding different ways of life and gaining perspective on your own. If you ever go to Dalat, please stay at Tigon Dalat Hostel. It's only $1 a night, but it's so welcoming, the people are amazing, and whatever you do, don't skip the motorbike tour. It gives you a real taste of local life and takes you to places you probably wouldn't find on your own. I left feeling more open-minded, adventurous, and reminded that some of the best travel experiences happen when you say yes to something unexpected.</p>
+<p>Looking back now, I think Vietnam has taught me more about life than I could've imagined.</p>
+<p>The North was where my heart fell first. The Ha Giang Loop will forever be one of my favourite experiences — the freedom of being on a bike surrounded by endless mountains, tiny villages, and kids waving as you pass by is something I'll never forget. It opened my eyes to how simple, yet tough, life can be for people out there — seeing little girls carrying huge bundles of branches on their backs, locals working from sunrise to sunset in harsh weather. It made me realise just how lucky I am, and how easily we take comfort for granted.</p>
+<p>Meeting Kate on that trip was another highlight. We just clicked instantly, and I feel like she's going to be a lifelong friend. It's so crazy how travel can bring people into your life who end up meaning so much.</p>
+<p>Then came the South — and things changed a little. I spent a lot more time alone. There weren't as many people around me, and I had to really sit with my own thoughts for once. I won't lie; there were moments where I felt homesick, lost, and unsure of what I was even doing. But I think that's exactly what I needed.</p>
+<div class="pullquote">Being alone isn't something to fear — it's something to grow from. You learn to be your own company, your own comfort, and your own reason to keep going.</div>
+<p>Vietnam taught me that travel isn't just about the good days but also the hard ones. The ones where you miss home, cry on the phone to your mum, and then somehow find yourself laughing the next day with strangers on a motorbike tour. It's about the weird, unpredictable moments that make the journey real. I've learned that things don't have to be perfect to be amazing — that every mistake, every detour, every "what the hell am I doing?" moment has a purpose. Vietnam showed me how resilient I am, how kind people can be, and how beautiful it is to connect with the world, even when you barely speak the same language.</p>
+<p>So yeah, Vietnam — you gave me bruised knees, a new tattoo, a lifelong friend, and some unforgettable memories. You made me cry, laugh, and grow more than I ever thought I would. And for that — cảm ơn (thank you).</p>`,
+    gallery:[], galleryNote:'Maia’s Vietnam photos are on the way — 8 to slot in: Old Quarter (Hanoi), Hanoi streets, Rock Trail (Cat Ba Island), Du Gia Waterfall, the names wall at Ha Giang, Tam Coc (Ninh Binh), Da Nang beach, and Hoi An Town.'
+  },
+  laos: {
+    title:'Laos', meta:['May 28','10 min read'],
+    hero:'14d7f4_227c5a8ad6fb4654a704fbf1a4d755ad',
+    body:`<p>Laos had been on my bucket list for a while. It's one of those places people rarely know much about — when I told friends I was going, most responded with, "Where even is that?" "Are you sure it's a good idea? I heard it isn't that safe." Before researching it myself, I didn't know much either. I was drawn more by the feeling of going somewhere unfamiliar. I've always loved visiting places that feel undiscovered; it's intimidating, but that's what makes it exciting.</p>
+<p>At 5 a.m., I boarded a bus to the Thai–Laos border. Upon arrival at the border, you need to have $40 USD cash for the visa, making sure the notes were in perfect condition — no creases, no rips, no tears. It was a 10 min drive across the Mekong River, and just like that I was in Laos. The difference was immediate. The landscape felt wilder, more rural, and far less touched by tourism. Then came one small issue: I'd completely forgotten my eSIM would stop working the moment I left Thailand. Suddenly, I was facing a 10-hour travel day with no data or signal and only my downloaded Spotify playlists for company.</p>
+<p>Most backpackers take the famous two-day slow boat to Luang Prabang, but I knew I didn't have the patience for it. Instead, I chose a six-hour bus ride followed by a two-hour train journey. Somewhere in the middle of nowhere, I was dropped at a roadside stop and squeezed into a minivan with four locals. For the next five hours, the driver blasted what I think was their local radio music station while we wound through the countryside, stopping at tiny villages to pick up more passengers.</p>
+<div class="pullquote">Somewhere along that drive — watching everyday life unfold in roadside towns — I stopped feeling like a tourist and started feeling like a traveller.</div>
+<p>When I arrived in Luang Prabang, I instantly fell in love with the town. Every street seemed to have something to offer – little boutique shops, cosy cafes and of course the night market with endless souvenirs and street food. The riverfront path made the perfect morning and evening walk; you could watch the long wooden boats glide along the Mekong. The sense of community in Luang Prabang felt homely and welcoming. I stayed at Sabai Sabai Hostel which deserves a shoutout for its great free breakfast, good location in town and a nice swimming pool.</p>
+<p>On my first day, I visited Kuang Si Waterfall, one of Luang Prabang's most famous attractions. Turquoise water cascaded into stunning pools. After climbing the steep 300 steps to the top, swimming in the cool water was the perfect reward. If you're ever in Luang Prabang, Kuang Si is an absolute must-visit.</p>
+<p>I tried Beerlao — which, if you didn't already know, is the beer of Laos (points for the incredibly creative name). Definitely better than Chang, in my expert backpacker opinion.</p>
+<p>After Luang Prabang, it was off to Vang Vieng. A town filled with hikes, viewpoints, lagoons and extreme sports. Definitely right up my alley so I was so keen to get there. I had planned to take the quick one-hour speed train, but of course the tickets sold out, so instead I found myself boarding the dreaded five-hour minivan.</p>
+<p>The moment I arrived at the local bus station, I instantly started questioning my decision. I was the only foreigner — and the only white girl — standing there with my backpack while locals piled into the van. There was even a chicken in a cage stuffed in the back of the van with all the luggage. The man next to me smelled like he hadn't showered in a week, and we were all crammed in touching shoulder to shoulder.</p>
+<p>Before leaving, I'd already read the Facebook warnings: "avoid at all costs," "the roads are death traps," and "prepare to regret your life choices." Honestly, they weren't exaggerating. The road was bumpy, winding, and half corrugated, with stretches running along cliff edges that had me questioning my decision.</p>
+<p>I tried looking at it as an experience - it's all part of the journey. How bad can it be? Nothing my Spotify playlists can't fix.</p>
+<p>Surprisingly, it wasn't all bad. At one point, the driver stopped on the side of a cliff and told us to get out and look at the view — and wow, it was stunning. The van wound its way past jagged limestone mountains and rolling green valleys, and by the end, I would say the five-hour minivan journey was worth it, just for those views. Something about putting yourself in uncomfortable situations reminded me that the most uncomfortable or uneasy parts of travelling end up becoming the moments you remember most. A simple change in perspective can turn something scary or intimidating into an experience you never realised you needed.</p>
+<p>In Vang Vieng, I stayed at Rock Backpackers Hostel, which also deserves a shoutout for the <em>amazing</em> free breakfast — fresh fruit platters, banana pancakes, omelettes; they also had a good deal for motorbike rentals. Owen met me in Vang Vieng and for the next three days we pretty much lived on our bikes.</p>
+<p>We chased down two different viewpoints — both equally beautiful and equally stupid to get to. A few days of rain left all the dirt roads super muddy, and I may have gotten ever so slightly bogged a couple of times. The first Viewpoint was <em>Nam Xay</em>, a 20-minute, super slippery vertical climb that rewarded us with its famous motorbike on top. The second hike was a brutal hour and a half hike straight up jagged rocks, no trail, no signs, and no other people. I don't even think it had a name, but we heard through a local it was a must do so we decided to put all our trust into his advice. Most people would call it stupid, but we saw it as a challenge. After several conversations about what we'd do if one of us got bitten by a snake, fell off a rock, or, you know, died — we finally made it.</p>
+<p>Standing alone at the top of the mountain, with nothing but endless cliffs and valleys around us, was one of the most rewarding moments of my whole trip. It was quiet, we were so high up we couldn't hear anything, it felt unreal. On the ride back down through little villages, kids waved and smiled from the roadside, and I had one of those cliché but real 'light bulb' moments: I was so lucky to be here, seeing this part of the world, proud of myself for actually taking the leap to travel solo. Everything I had done and seen over the past few days was something I never knew even existed and that to me is something so special.</p>
+<p>The next day we went to the swimming lagoon. It had Rope swings and a dodgy zipline. Owen then decided to peer-pressure me into exploring a very dodgy cave in the middle of nowhere. Keep in mind it had just been raining. The "entrance" was basically a wobbly bamboo ladder leading into darkness, signage that was written in Lao; Google Translate didn't even know what it said, and the only light was our phone torches. However, it sounded like the kind of thing that would make a good story later.</p>
+<p>On my last evening, I decided to go big and do paramotoring. I paid $50 USD (which, yes, I later realised was a rip-off — it usually costs around $35) Despite that, it was worth every cent. I went up at sunset, and it was breathtaking — flying over jagged mountains and endless valleys, floating above a world that felt completely still. I'd 100% do it again. Fun fact Laos is the cheapest place to do paramotoring in the world.</p>
+<p><em>Vang Vieng, you will be missed.</em></p>
+<p>The Thakhek Loop is a 450km motorbike loop in the south of Laos. It takes four days to complete, with stops at lagoons, viewpoints and caves along the way. We didn't have much plan or research behind it, only seen a few TikToks and decided we wanted to give it a go.</p>
+<p>After our 8hr bus from Vang Vieng, we arrived in the town of Thakhek. We had no hostel booked, so we just rocked up to a random guesthouse and asked if they had space. For about $3 AUD we scored a 10-bed dorm all to ourselves. The windows were just fly nets, there was no air-con, and the beds looked straight out of an orphanage — but hey, it did the job.</p>
+<p>The next morning, we found a place to rent our bikes, filled up our full tanks for about $10 AUD, and just like that we were off. The first day was pure excitement. I rode off with no expectations, no real plan, and no idea what the next four days would bring. A tiny part of me was nervous about the police — I didn't have an international license (both of us didn't). Luckily, we had no issue with that. As we left Thakhek town and headed deeper into the countryside, the scenery instantly blew me away. Rolling hills, jagged mountains, tiny villages where kids waved as we passed — it felt like stepping into a different world. I can't explain the freedom I felt. No stress, no worries, just the road ahead and the endless beauty of Laos all around me.</p>
+<p>From there we cruised through the countryside until we stumbled across a little roadside restaurant for lunch — one of those no-name places with plastic stools, and the food just hits the spot. With our stomachs full, we headed to a viewpoint I'll never forget. Now, getting there was another story. To reach the top, you had to climb a ladder with about 500 steps. The ladder was rusted, broken in places, and looked like it had survived several lifetimes already. But of course, we did it anyway. Some steps were missing, others wobbled dangerously, but eventually we made it. The view was absolutely worth the sketchy climb. I left my name scratched onto a plank of wood at the top, like hundreds of travellers before me.</p>
+<p>By the time we set off again, the sun was setting. Driving into golden hour with those unreal mountain silhouettes and rice fields glowing in the light. I wish I could've taken more photos, but I was too busy living it. The first night we stayed at this gorgeous guesthouse in a tiny village. Here we met other travellers doing the loop and bumped into them a lot along the way. This little local lady's restaurant was so cute, her kids were the waitresses, and the food was so comforting, it felt extra special knowing it was from a local family house.</p>
+<p>The next day carried the same magic — endless mountain views, winding roads through local villages, and even better weather. We stopped at random spots along the way, the kind where you just must pull over because the view is too good to ignore. Photos never really did it justice, but standing there and taking it all in, I felt completely immersed in the moment. If travelling had a feeling, what I felt right then would be exactly it.</p>
+<p>Later we cooled off with a swim at Blue Lagoon. After hours on the bike, it was exactly what we needed. That night we stayed at <em>Sabaidee Guesthouse;</em> my favourite place I stayed at the whole trip. Our room had a little balcony with a hammock overlooking the rice fields. We spent the evening out there, swinging in the hammock, chatting, laughing, and swapping stories until late. I loved hearing about the lives of other travellers — people from completely different backgrounds and walks of life, yet we had all ended up in the exact same place at the exact same time, sharing the same incredible experience. Special moments like this are exactly why I love travelling so much.</p>
+<p>Day three was spent mostly driving, though the roads were a lot rougher this time. At one point, we saw a road train tipped over, and later almost got sandwiched between two trucks, there was a lot of road train overtaking. That night we ended up at some random guesthouse literally in the middle of nowhere. The "bed" felt like cardboard, dinner was hands-down the worst pad Thai of my life, and the shower? Just a hose stuck over a toilet. Not exactly luxury, but a night to remember.</p>
+<p>Day four, we rode all the way back to Thakhek, though the weather wasn't on our side. The rain got heavy a few times, so we had to pull over and wait it out. We all made it back both ourselves and our bikes in one piece. Despite our last day, The Thakhek loop was by far the best thing I did on this trip, I will be bringing my friends back for sure.</p>
+<p>After the loop, Owen and I went our separate ways. Another goodbye to a friend, not knowing if I'd ever see them again. It's something I don't think I'll ever fully get used to while travelling.</p>
+<p>I signed up for another Worldpackers volunteering experience, this time teaching English in the capital city, Vientiane. I spent 10 days at a daycare centre teaching younger kids, who completely melted my heart — they were so cute and it was a wholesome experience I won't forget. As for Vientiane itself, there isn't a huge amount to do, so if you're planning to visit just for the city, I'd probably only recommend staying one or two nights.</p>
+<p>So, Laos quickly became a very special place to me. It taught me so much. Laos reminded me that the best adventures rarely go according to plan. The rough roads, the broken-down bikes, the hose-over-the-toilet "showers" — all the little inconveniences became part of the story. They taught me that comfort is overrated, and that stepping outside your comfort zone is what creates the best memories and the best stories to tell.</p>
+<p>For a country I'd been warned about for being underdeveloped and less touristy than other parts of Asia, Laos ended up becoming one of my favourites. The people, the landscapes, and the ruralness of it, I felt like I had whole parts of the country to myself at times. It showed me that the unexpected can turn out to be the feeling you might have been searching for.</p>
+<div class="pullquote">Laos taught me that when you let go of the need to control everything and just embrace the unknown, you find the most joy. The best moments rarely come from perfection, but from pushing yourself, staying open-minded, and discovering beauty in the unexpected.</div>`,
+    gallery:[
+      ['14d7f4_227c5a8ad6fb4654a704fbf1a4d755ad','Kuang Si Waterfall, Luang Prabang'],
+      ['14d7f4_292ca433e76341a3925aacf9f8bebbf5','Luang Prabang'],
+      ['14d7f4_5871022c8f8e4b87aaba4fdf3d136672','Nam Xay Lookout, Vang Vieng'],
+      ['14d7f4_1688b5cc68ed48878a92ed2506c5f92b','Vang Vieng'],
+      ['14d7f4_49b14e9ec0844f948cc6022bf14e3146','Paramotoring, Vang Vieng'],
+      ['14d7f4_230afe7572d742afb6faa489fc8df2cf','Mixay Motorbike rentals, Thakhek'],
+      ['14d7f4_07e297dcbb254fa9a09938b7ce07e8d6','The Thakhek Loop'],
+      ['14d7f4_b4efbfb8442c4c0ba7adac5646243db3','Sabaidee Guesthouse'],
+      ['14d7f4_44a3e021922747228c9a3d99db79da59','On the loop'],
+      ['14d7f4_8acea9df50584d14a769aac14c13cefc','Teacher Nee’s daycare, Vientiane']
+    ]
+  },
+  thailand: {
+    title:'Thailand', meta:['May 23','9 min read'],
+    hero:'14d7f4_86c6fe1605974772b75e5fa14bd3974a',
+    body:`<p>Thailand was everything at once. Bustling cities, endless street food, picturesque beaches and mountain towns that felt like another world entirely. Thailand was messy, beautiful and addictive – the perfect mix of adventure, freedom and people that make you feel at home. I spent a whole month travelling from south to north and it only felt like I just scratched the surface of what this country has to offer.</p>
+<p>I started in Phuket, waking up in the old town – a beautiful little town surrounded by endless little shops, restaurants, and streets that felt full of history. I spent a few hours wandering around before getting on a boat to the famous touristy island of Koh Phi Phi. My expectations were somewhat high, I heard so much about Phi Phi and was so ready to see and experience it for myself. As the mainland slowly disappeared behind me, I started to see the tall limestone cliffs rising out of the water, longtail boats drifted across the silky green sea, in that moment it finally hit me – this is Thailand. I caught my first glimpse of the island and understood the hype. It really was beautiful. I spent hours exploring with no real plan, walking down all the little alleyways and eating some banging Pad Thai. The full day boat tour was the highlight of the island. Swimming through lucid blue water surrounded by huge schools of fish, narrowly survived an aggressive monkey encounter at Monkey Beach, and finally got to lay my eyes on the famous Maya Bay.</p>
+<p>Moving along, I had my eyes on something else. I've had my eyes on this event for a while before planning this trip, and that was the Full Moon Party. Located on the island of Koh Phangan the Full Moon Party is Southeast Asia's biggest all-night beach party. It involves 6 different stages of DJs on a long stretch of beach, fire lit skipping ropes, neon body paint and questionable 'buckets' of drinks. Was it a good idea as a solo 18-year-old female to go to the Full Moon Party alone last minute with no plan or accommodation booked? Absolutely.</p>
+<p>I took the 7hr long journey involving 2 buses and a 3hr ferry to the island of Koh Phangan. My hostel was at the back of a T shirt stall on a busy street filled with bars and shops. I was in a hostel room full of French men who couldn't speak great English, however the reception lady did give me free body paint and a free beer, so I wasn't complaining. Luckily my amazing social skills pulled through, and I met a group of girls my age on the ferry from Sydney who invited me to their villa for pres. The whole night was the best fun. Drank heaps, jumped over a fire lit skipping rope and pretty much just danced at a beach rave until 3am. Yep, it was cool. Next day got the best of me though.</p>
+<p>Full Moon Party experience was a solid eight out of ten. Would do it again, and I would recommend. (best to book accommodation at least a week in advance)</p>
+<p>Here is when you need to start taking notes because this next place was my favourite place I visited in Thailand - Koh Tao.</p>
+<p>Koh Tao instantly felt like the kind of place backpackers accidentally stay for longer than planned. Myself, I extended an extra week. Scuba diving, smoothie bars, scooters was only method of transport, hostels filled with young backpackers. Paradise. The kind of place where you forget you have a phone, and the days somehow turn into nights before you even notice. I wasted no time and booked a boat trip for the next day, which turned out to be one of the best decisions of the trip. It was there that I met Tyler and Rauni, two of the loveliest girls from New Zealand. We clicked almost immediately, spending the day snorkelling, launching ourselves off the side of the boat and talking as if we had known each other for years. That night, the three of us geared up for the famous Jungle Party. Naturally, this started with a classy 7/11 pre-drinks run — where we tried basically every sketchy can and bottle on the shelves. A pickup truck hauled us into the middle of the jungle, multiple stages pulsed through the trees with DJs and fire shows, and the atmosphere was electric. It was also the night I met Owen, who would quickly become a recurring character for the rest of the trip.</p>
+<p>From then on, the four of us — Tyler, Rauni, Owen and I — were pretty much inseparable for the next two weeks. Days were spent scootering around the island, including one night where all four of us somehow squeezed onto the same bike and, against all odds, made it home in one piece. Every corner there was another beach to explore or lookout to climb. Nights were for pub crawls, cheap vodka bottles and $3 Nutella crepes from the food stalls. Koh Tao was more than just a pretty island – it was pure magic. It was not just a place but a feeling. I made some memories I know I will carry forever. Safe to say I'll be back.</p>
+<div class="pullquote">People enter your life so quickly, become a huge part of your everyday routine, and then suddenly it's time for everyone to head in different directions again. It's bittersweet, but I think that's also part of what makes travelling so special.</div>
+<p>It was an unfamiliar feeling saying goodbye to people who felt like close friends, not knowing if you'd ever see each other again. Travelling constantly teaches you how temporary things can be. People enter your life so quickly, become a huge part of your everyday routine, and then suddenly it's time for everyone to head in different directions again. It's bittersweet, but I think that's also part of what makes travelling so special. You learn to appreciate people while they're there instead of worrying too much about what happens afterwards. Besides, I like to think that if paths are meant to cross again someday, they will.</p>
+<p>I was on my way to the capital city of Bangkok. The city was loud, messy and constantly moving. The streets were filled with traffic, music, food carts and flooded with people. I went to the famous Khao San road, known for its ladyboy shows and concerning street food. I firmly declined to try a scorpion on a stick - mainly because I didn't really want my trip to come to an end just yet. I also visited a couple of temples. They felt calm and was a good break from the heat and the hustle of the city. I would recommend visiting at least one or two while in Bangkok. Even though I enjoyed the city, Bangkok was probably the first place where solo travelling started to feel a little lonely. Surrounded by so many people, I oddly felt more alone there than anywhere else on the trip. I can imagine the city being far more enjoyable with a group of friends or family — but maybe that was just my experience at the time.</p>
+<p>Chiang Mai is a 12-hour overnight bus from Bangkok. I left 9pm and got there early morning the next day. Not a blink of sleep but the feeling of arriving in a new place always has me buzzing so I was ready to go. Chiang Mai had this cute small-town vibe that was super refreshing and different to any place I had been to before. On the first day I went to a famous Buddhist temple called <em>Wat Phra That Doi Suthep</em>. I climbed up what felt like a thousand stairs up to the temple on a massive hill. It was an immersive cultural experience to see the monks and the infrastructure of the temple.</p>
+<p>After a couple of nights in the city, I jumped on a songthaew — the local shared bus to head 40 mins inland to my first volunteering experience: teaching English online to kids and adults in a small village outside Chiang Mai. Honestly, I had no idea what I was walking into. My mum's response to the idea was, "Send me your location in case they're human traffickers trying to sell your body parts," which was incredibly reassuring. Naturally, this made me question whether the whole thing was even legitimate — but I figured, why not? It ended up being one of the most rewarding parts of the trip.</p>
+<p>The volunteering place was tucked away in Mae Wang District, surrounded by jungle and tiny local villages. The volunteers were a mix of open-minded travellers, many seemingly on some sort of spiritual healing journey, but everyone had incredible stories and perspectives to share. It reminded me how much travelling pushes you to connect with people you'd probably never meet otherwise.</p>
+<p>This is also where I met Maria, a 23-year-old from Poland who I ended up travelling with for the rest of my time in Thailand. We spent our spare time wandering local fruit markets, where one sweet lady would always sneak us extra fruit for free. We even spent one afternoon at a Chiang Mai inflatable waterpark launching ourselves off giant inflatables and zip lines.</p>
+<p>The teaching itself was surprisingly fun. I even had a few students request me again for future lessons, which I took as a very serious achievement.</p>
+<p>Back in Chiang Mai city, Maria and I ended up at Mad Monkey, which if you didn't know is a party hostel chain. We went to the foam pool party which turned into a night drinking beer with British and Australian travellers — including a group of boys who, somehow, were also from Perth. Hearing their story of how they have been travelling for years without going home made the world suddenly feel both huge and strangely small at the same time.</p>
+<p>Before leaving Chiang Mai, Maria and I did a two-day jungle trek through local villages, rice paddies and dense rainforest. We swam beneath waterfalls, climbed muddy hills with unreal views, and spent the night in a bamboo hut overlooking rice terraces while eating homemade Thai curries around the fire. Along the way, we passed through tiny villages where local kids would run up wanting to play with us. It genuinely felt special — one of those moments where you stop feeling like a tourist ticking places off a list and start feeling like you're experiencing the country properly. That, to me, felt like real travelling.</p>
+<p>Chiang Mai felt completely different to the islands and Bangkok. Slower, calmer and more connected to nature. Between the people, the food, the jungle and the little village moments, it became one of the places I know I'll miss the most.</p>
+<p>Then we were off to Pai — a three-hour bus ride through the windiest roads known to mankind. At the 10-minute toilet break, I must've taken 10 minutes and 25 seconds, because when I came out… my bus was gone. Just left me there. Stranded. No bags, no clue. Luckily, another bus driver heading to Pai let me sit in the front middle seat next to him. When we arrived, my bags were just chilling on the dirty concrete floor of the station. Rocky start, however the unexpected is all part of solo travelling.</p>
+<p>I'd describe Pai as the Byron Bay of Thailand: full of hippies, weed, and peace signs everywhere. Maria and I checked into our hostel called 'Nolo Hub' and walked into town to get some famous 'Khao soi noodles' which is the dish of northern Thailand, and I can confirm it was a 10/10. The next day we naturally rented scooters to explore. The countryside was <em>stunning</em> — winding roads through rice fields, insane viewpoints, and we even spotted an elephant on the side of the road. We watched the sunset at Pai Canyon, which was so beautiful. At night, the food market was unbeatable, filled with authentic and spicy local Thai food. I went out with some British boys from the hostel, and we bar-hopped until we somehow ended up at a local's house doing karaoke. Overall, Pai was a super cute town — chilled, vibey, the spot if you want to relax, eat good food, and have fun with the locals. But honestly there wasn't a lot to do, so you only need a good three to four days.</p>
+<p>Travel has a funny way of teaching you things you didn't realise you needed to learn, and Thailand was full of those lessons for me.</p>
+<p>The biggest one was to take risks and put yourself out there. If I hadn't signed up for the Worldpackers volunteering or forced myself to start conversations with complete strangers, I never would've met some of the people who ended up shaping my trip. Sometimes you really do just have to say, "why not?"</p>
+<p>Thailand also taught me that not every place is going to be for you, and that's okay. I wasn't the biggest fan of Bangkok, but that didn't make the experience bad. Some places simply connect with you more than others, and that's part of travelling too.</p>
+<p>More than anything, I realised that people are what truly make a place special. The beaches, temples and mountains were incredible, but it's the memories with people — meeting friends you just click with, late night talks and getting to share a place or experience with someone else, those are the moments that end up meaning the most.</p>
+<div class="pullquote">Thailand taught me to stress less, go with the flow a little more, and trust that things usually work themselves out in the end.</div>`,
+    gallery:[
+      ['14d7f4_86c6fe1605974772b75e5fa14bd3974a','Shark Bay, Koh Phi Phi'],
+      ['14d7f4_149a128d041e41949f209470af1a3e5c','Mango Bay, Koh Tao'],
+      ['14d7f4_66f624a444f14198ad67be06e7883dd0','Wat Pho temple, Bangkok'],
+      ['14d7f4_5397157c7bf644d993db5d6e81cfb574','Trekking the jungle, Chiang Mai'],
+      ['14d7f4_b0caddbdf2434c85aac632d59906943c','Pai countryside']
+    ]
+  }
+};
+
+// ---- Card rendering ----
+function cardHTML(s, i){
+  var num = ('0'+(i+1)).slice(-2);
+  var readShort = (s.readTime||'').replace(' read','');
+  return '<article class="card" data-slug="'+s.slug+'">'
+    + '<div class="card-img"><span class="card-num">'+num+'</span>'+imgTag(s.cover, s.country)+'</div>'
+    + '<div class="card-body"><div class="meta"><span>'+s.country+'</span>'+(readShort?'<span>'+readShort+'</span>':'')+'</div>'
+    + '<h3>'+s.country+'</h3><p>'+(s.excerpt||'')+'</p>'
+    + '<span class="more">Read the story</span></div></article>';
+}
+function renderCards(){
+  var grid = document.getElementById('grid');
+  grid.innerHTML = STORIES.map(cardHTML).join('');
+  grid.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('click', function(){ openStory(c.dataset.slug); });
+  });
+}
+
+// ---- Reader ----
+function openStory(slug){
+  var s = BY_SLUG[slug];
+  if(!s) return;
+  var gal = '';
+  if(s.gallery && s.gallery.length){
+    gal = '<div class="gallery">'+s.gallery.map(function(x){
+      return '<figure><div class="gallery-img">'+imgTag(x.src, x.caption)+'</div>'
+        + (x.caption?'<figcaption>'+x.caption+'</figcaption>':'')+'</figure>';
+    }).join('')+'</div>';
+  }
+  if(s.galleryNote){ gal += '<div class="gallery-note">'+s.galleryNote+'</div>'; }
+  var meta = [s.date, s.readTime].filter(Boolean).map(function(m){return '<span>'+m+'</span>';}).join('');
+  document.getElementById('readerContent').innerHTML =
+    '<div class="r-hero" style="background-image:url('+resolveImg(s.cover)+')">'
+    + '<div class="r-hero-inner"><div class="meta">'+meta+'</div><h1>'+s.country+'</h1></div></div>'
+    + '<article class="article">'+renderBody(s.body)+'</article>'+gal;
+  var r = document.getElementById('reader');
+  r.classList.add('open'); r.scrollTop = 0;
+  document.body.style.overflow='hidden';
+  if(history.replaceState) history.replaceState(null,'','#story/'+slug);
+}
+function closeStory(){
+  document.getElementById('reader').classList.remove('open');
+  document.body.style.overflow='';
+  if(history.replaceState) history.replaceState(null,'',location.pathname);
+}
+document.getElementById('readerClose').addEventListener('click',closeStory);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeStory();});
+
+// ---- Data loading ----
+function normalizeLegacy(){
+  var order=['vietnam','laos','thailand'];
+  var ex={
+    vietnam:"Goooood morning, Vietnam! A month north to south — mountain loops, motorbikes, and a lifelong friend made along the way.",
+    laos:"One of those places people rarely know much about. Rough roads, wild landscapes, and the beauty of the unexpected.",
+    thailand:"Everything at once — bustling cities, endless street food, island raves and mountain towns from another world."
+  };
+  return order.map(function(slug){
+    var s=LEGACY[slug];
+    return {slug:slug,country:s.title,date:s.meta[0],readTime:s.meta[1],cover:s.hero,excerpt:ex[slug],body:s.body,
+      gallery:(s.gallery||[]).map(function(x){return {src:x[0],caption:x[1]};}),galleryNote:s.galleryNote||''};
+  });
+}
+function boot(data){
+  STORIES = (data && data.stories && data.stories.length) ? data.stories.slice() : normalizeLegacy();
+  STORIES.sort(function(a,b){return (a.order||99)-(b.order||99);});
+  BY_SLUG = {};
+  STORIES.forEach(function(s){ BY_SLUG[s.slug]=s; });
+  renderCards();
+  var m = location.hash.match(/^#story\/(.+)$/);
+  if(m && BY_SLUG[m[1]]) openStory(m[1]);
+}
+fetch('content/stories.json',{cache:'no-store'})
+  .then(function(r){ if(!r.ok) throw new Error('no json'); return r.json(); })
+  .then(boot)
+  .catch(function(){ console.warn('[ALTROVE] Using embedded fallback content (stories.json not reachable).'); boot(null); });
+
+// ---- Nav ----
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);});
+const tog=document.getElementById('navtoggle'),links=document.getElementById('navlinks');
+tog.addEventListener('click',function(){links.classList.toggle('show');});
+links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('show');});});
+</script>
+</body>
+</html>
