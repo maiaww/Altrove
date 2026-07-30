@@ -6,7 +6,7 @@
 
 backend:
   name: github
-  repo: REPLACE_ME/altrove   # <-- change to your-github-username/altrove
+  repo: maiaww/altrove   # <-- change to your-github-username/altrove
   branch: main
 
 # Where photos you upload in the editor are saved
